@@ -1,0 +1,12 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y g++ make
+
+WORKDIR /app
+COPY consumer.cpp .
+
+RUN g++ consumer.cpp -o consumer -std=c++11 -pthread
+
+EXPOSE 9090
+
+CMD ["./consumer", "-p", "9090"]
