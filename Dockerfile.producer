@@ -1,0 +1,10 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y g++ make
+
+WORKDIR /app
+COPY producer.cpp .
+
+RUN g++ producer.cpp -o producer -std=c++11 -pthread
+
+CMD ["./producer", "consumer:9090", "-n", "10", "-m", "10"]
