@@ -1,0 +1,15 @@
+services:
+  consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile.consumer
+    expose:
+      - "9090"
+
+  producer:
+    build:
+      context: .
+      dockerfile: Dockerfile.producer
+    depends_on:
+      - consumer
+    command: ["./producer", "consumer:9090", "-n", "100", "-m", "100"]
